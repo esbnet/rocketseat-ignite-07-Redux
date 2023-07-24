@@ -1,13 +1,22 @@
 import { MessageCircle } from "lucide-react";
+import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { Module } from "../components/Module";
 import { Video } from "../components/Video";
 import { useAppSelector } from "../store";
+import { useCurrentLesson } from "../store/slices/player";
 
 export function Player() {
   const modules = useAppSelector((state) => {
     return state.player.course.modules;
   });
+
+  const { currentLesson } = useCurrentLesson();
+
+  useEffect(() => {
+    document.title = `Assistindo: ${currentLesson.title}`;
+  }, [currentLesson]);
+
   return (
     <div className="flex justify-center items-center h-screen bg-zinc-950 text-zinc-50">
       <div className="flex w-[1100px] flex-col gap-6">

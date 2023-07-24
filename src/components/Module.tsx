@@ -23,7 +23,7 @@ export function Module({ moduleIndex, title, amoutnOfLessons }: ModuleProps) {
   });
 
   return (
-    <Collapsible.Root className="group">
+    <Collapsible.Root className="group" defaultOpen={moduleIndex === 0}>
       <Collapsible.Trigger className="flex gap-3 items-center p-4 w-full bg-zinc-800">
         <div className="flex justify-center items-center w-10 h-10 text-xs rounded-full bg-zinc-950">
           {moduleIndex + 1}
@@ -40,7 +40,9 @@ export function Module({ moduleIndex, title, amoutnOfLessons }: ModuleProps) {
       <Collapsible.Content>
         <nav className="flex relative flex-col gap-4 p-6">
           {lessons.map((lesson, lessonIdex) => {
-            const isCurrent = moduleIndex === currentModuleIndex && lessonIdex === currentLessonIndex;
+            const isCurrent =
+              moduleIndex === currentModuleIndex &&
+              lessonIdex === currentLessonIndex;
             return (
               <Lesson
                 key={lesson.id}
