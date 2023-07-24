@@ -1,5 +1,6 @@
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { ChevronDown } from "lucide-react";
+import { useAppSelector } from "../store";
 import { Lesson } from "./Lesson";
 
 interface ModuleProps {
@@ -8,10 +9,14 @@ interface ModuleProps {
   amoutnOfLessons: number;
 }
 export function Module({ moduleIndex, title, amoutnOfLessons }: ModuleProps) {
+  const lessons = useAppSelector((state) => {
+    return state.player.course.modules[moduleIndex].lessons;
+  });
+
   return (
     <Collapsible.Root className="group">
-      <Collapsible.Trigger className="flex w-full items-center gap-3 bg-zinc-800 p-4">
-        <div className="flex h-10 w-10 rounded-full items-center justify-center bg-zinc-950 text-xs">
+      <Collapsible.Trigger className="flex gap-3 items-center p-4 w-full bg-zinc-800">
+        <div className="flex justify-center items-center w-10 h-10 text-xs rounded-full bg-zinc-950">
           {moduleIndex + 1}
         </div>
 
@@ -24,35 +29,14 @@ export function Module({ moduleIndex, title, amoutnOfLessons }: ModuleProps) {
       </Collapsible.Trigger>
 
       <Collapsible.Content>
-        <nav className="relative flex flex-col gap-4 p-6">
-          <Lesson
-            title="Desvendando o Redux"
-            duration="00:00"
-            slug={""}
-            availableAt={new Date()}
-            type={"live"}
-          />
-          <Lesson
-            title="Desvendando o Redux"
-            duration="00:00"
-            slug={""}
-            availableAt={new Date()}
-            type={"live"}
-          />
-          <Lesson
-            title="Desvendando o Redux"
-            duration="00:00"
-            slug={""}
-            availableAt={new Date()}
-            type={"live"}
-          />
-          <Lesson
-            title="Desvendando o Redux"
-            duration="00:00"
-            slug={""}
-            availableAt={new Date()}
-            type={"live"}
-          />
+        <nav className="flex relative flex-col gap-4 p-6">
+          {lessons.map((lesson) => (
+            <Lesson
+              key={lesson.id}
+              title={lesson.title}
+              duration={lesson.duration}
+            />
+          ))}
         </nav>
       </Collapsible.Content>
     </Collapsible.Root>
