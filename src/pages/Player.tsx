@@ -3,18 +3,26 @@ import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { Module } from "../components/Module";
 import { Video } from "../components/Video";
-import { useAppSelector } from "../store";
-import { useCurrentLesson } from "../store/slices/player";
+import { useAppDispatch, useAppSelector } from "../store";
+import { loadCourse, useCurrentLesson } from "../store/slices/player";
 
 export function Player() {
+  const dispatch = useAppDispatch()
+  
   const modules = useAppSelector((state) => {
-    return state.player.course.modules;
+    return state.player.course?.modules;
   });
 
   const { currentLesson } = useCurrentLesson();
 
   useEffect(() => {
-    document.title = `Assistindo: ${currentLesson.title}`;
+    dispatch(loadCourse());
+  },[])
+  
+  useEffect(() => {
+    if (currentLesson) {
+      document.title = `Assistindo: ${currentLesson.title}`;
+    }
   }, [currentLesson]);
 
   return (
@@ -34,16 +42,17 @@ export function Player() {
             <Video />
           </div>
           <aside className="overflow-y-scroll absolute top-0 right-0 bottom-0 w-80 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
-            {modules.map((module, index) => {
-              return (
-                <Module
-                  key={module.id}
-                  moduleIndex={index}
-                  title={module.title}
-                  amoutnOfLessons={module.lessons.length}
-                />
-              );
-            })}
+            {modules &&
+              modules.map((module, index) => {
+                return (
+                  <Module
+                    key={module.id}
+                    moduleIndex={index}
+                    title={module.title}
+                    amoutnOfLessons={module.lessons.length}
+                  />
+                );
+              })}
           </aside>
         </main>
       </div>
