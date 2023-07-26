@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 
 import { Lesson } from "./Lesson";
 
-import { useStore } from "../zustend-store";
+import { useStore } from "../zustand-store";
 
 interface ModuleProps {
   moduleIndex: number;

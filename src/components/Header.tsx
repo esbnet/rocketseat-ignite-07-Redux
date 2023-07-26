@@ -1,4 +1,4 @@
-import { useCurrentLesson, useStore } from "../zustend-store";
+import { useCurrentLesson, useStore } from "../zustand-store";
 
 export function Header() {
   const { currentLesson, currentModule } = useCurrentLesson();

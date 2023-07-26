@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { Module } from "../components/Module";
 import { Video } from "../components/Video";
-import { useCurrentLesson, useStore } from "../zustend-store";
+import { useCurrentLesson, useStore } from "../zustand-store";
 
 export function Player() {
   const { course, load } = useStore((store) => {

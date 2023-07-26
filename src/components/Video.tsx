@@ -1,6 +1,6 @@
 import { Loader } from "lucide-react";
 import ReactPlayer from "react-player";
-import { useCurrentLesson, useStore } from "../zustend-store";
+import { useCurrentLesson, useStore } from "../zustand-store";
 
 export function Video() {
   const { currentLesson } = useCurrentLesson();
